@@ -14,9 +14,11 @@
  * @author Cay Horstmann
  */
 
+///Line to run it is  javac -cp "../gridworld.jar" *.java
+///					  java -cp ".;../gridworld.jar" JumperRunner
 
 import info.gridworld.actor.Actor;
-import info.gridworld.actor;
+//import info.gridworld.actor;
 import info.gridworld.actor.Flower;
 import java.awt.Color;
 
