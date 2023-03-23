@@ -55,8 +55,15 @@ public class Jumper extends Bug
     {
         if (canMove())
             move();
+        else if(noPossibleMoves())
+        {
+			if(super.canMove())
+				super.move();
+			else
+				turn();
+		}
         else
-            turn();
+			turn();
     }
 
     /**
@@ -85,7 +92,7 @@ public class Jumper extends Bug
         Blossom flower = new Blossom();
         flower.putSelfInGrid(gr, loc);
     }
-
+	
     /**
      * Tests whether this bug can move forward into a location that is empty or
      * contains a flower.
@@ -105,5 +112,28 @@ public class Jumper extends Bug
         // ok to move into empty location or onto flower
         // not ok to move onto any other actor
     }
+    /**
+     * Tests to see if there are any possible moves for the jumper
+     * @return true		There are no possible moves
+     * @return false	There are possible moves left
+     */
+	public boolean noPossibleMoves()
+	{
+		Grid<Actor> gr = getGrid();
+        if (gr == null)
+            return true;
+        Location loc = getLocation();
+        for(int i = 0; i < 8; i++)
+        {
+			Location next = loc.getAdjacentLocation(45 * i).getAdjacentLocation(45 * i);
+			if(gr.isValid(next))
+				return false;
+			Actor neighbor = gr.get(next);
+			if((neighbor == null) || (neighbor instanceof Blossom) || (neighbor instanceof Flower))
+				return false;
+		}
+		return true;
+			
+	}
 }
 
