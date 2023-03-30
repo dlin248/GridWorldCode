@@ -29,9 +29,9 @@ import java.util.ArrayList;
  * <br />
  * This class is not tested on the AP CS A and AB exams.
  */
-public class QuickCrab extends CrabCritter
+public class CrabCritter extends Critter
 {
-    public QuickCrab()
+    public CrabCritter()
     {
         setColor(Color.RED);
     }
@@ -46,8 +46,7 @@ public class QuickCrab extends CrabCritter
         ArrayList<Actor> actors = new ArrayList<Actor>();
         int[] dirs =
             { Location.AHEAD, Location.HALF_LEFT, Location.HALF_RIGHT };
-        for (Location loc : super.getLocationsInDirections(dirs))//super call since i kinda messed with 
-															//getLocationsInDirections in this class
+        for (Location loc : getLocationsInDirections(dirs))
         {
             Actor a = getGrid().get(loc);
             if (a != null)
@@ -66,11 +65,8 @@ public class QuickCrab extends CrabCritter
         int[] dirs =
             { Location.LEFT, Location.RIGHT };
         for (Location loc : getLocationsInDirections(dirs))
-        {
-			Grid gr = getGrid();
-            if (gr.get(loc) == null)
+            if (getGrid().get(loc) == null)
                 locs.add(loc);
-		}
 
         return locs;
     }
@@ -110,10 +106,9 @@ public class QuickCrab extends CrabCritter
     
         for (int d : directions)
         {
-            Location neighborNeighborLoc = loc.getAdjacentLocation(getDirection() + d).getAdjacentLocation(getDirection() + d);
             Location neighborLoc = loc.getAdjacentLocation(getDirection() + d);
-            if (gr.isValid(neighborNeighborLoc) && gr.get(neighborLoc) == null)
-                locs.add(neighborNeighborLoc);
+            if (gr.isValid(neighborLoc))
+                locs.add(neighborLoc);
         }
         return locs;
     }    
